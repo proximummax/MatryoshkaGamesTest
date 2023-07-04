@@ -18,6 +18,7 @@ namespace CookingPrototype.Kitchen {
 
 		void Start() {
 			_possibleOrders.AddRange(OrdersController.Instance.Orders);
+
 		}
 
 		bool CanAddFood(Food food) {
@@ -49,12 +50,10 @@ namespace CookingPrototype.Kitchen {
 			if ( !CanAddFood(food) ) {
 				return false;
 			}
-
 			foreach ( var place in Places ) {
 				if ( !place.TryPlaceFood(food) ) {
 					continue;
 				}
-
 				CurOrder.Add(food.Name);
 				UpdatePossibleOrders();
 				CurOrderUpdated?.Invoke();

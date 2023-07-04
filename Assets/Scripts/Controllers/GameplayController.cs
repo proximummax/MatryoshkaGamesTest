@@ -14,7 +14,7 @@ namespace CookingPrototype.Controllers {
 		public GameObject TapBlock   = null;
 		public WinWindow  WinWindow  = null;
 		public LoseWindow LoseWindow = null;
-
+		public StartWindow StartWindow = null;
 
 		int _ordersTarget = 0;
 
@@ -37,6 +37,9 @@ namespace CookingPrototype.Controllers {
 			Instance = this;
 		}
 
+		private void Start() {
+			StartWindow.Show();
+		}
 		void OnDestroy() {
 			if ( Instance == this ) {
 				Instance = null;
@@ -69,6 +72,7 @@ namespace CookingPrototype.Controllers {
 			TapBlock?.SetActive(false);
 			WinWindow?.Hide();
 			LoseWindow?.Hide();
+			StartWindow?.Hide();
 		}
 
 		[UsedImplicitly]
@@ -92,7 +96,22 @@ namespace CookingPrototype.Controllers {
 				place.FreePlace();
 			}
 		}
+		public void StartGame() {
+			HideWindows();
 
+			foreach ( var place in FindObjectsOfType<AbstractFoodPlace>() ) {
+				place.FreePlace();
+			}
+
+			PauseGame(false);
+		}
+
+		public void PauseGame(bool enable) {
+			if ( enable )
+				Time.timeScale = 0.0f;
+			else
+				Time.timeScale = 1.0f;
+		}
 		public void CloseGame() {
 #if UNITY_EDITOR
 			UnityEditor.EditorApplication.isPlaying = false;

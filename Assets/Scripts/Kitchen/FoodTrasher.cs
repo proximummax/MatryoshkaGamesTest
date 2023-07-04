@@ -9,7 +9,7 @@ namespace CookingPrototype.Kitchen {
 	public sealed class FoodTrasher : MonoBehaviour {
 
 		FoodPlace _place = null;
-		float     _timer = 0f;
+		float _timer = 0f;
 
 		void Start() {
 			_place = GetComponent<FoodPlace>();
@@ -21,7 +21,14 @@ namespace CookingPrototype.Kitchen {
 		/// </summary>
 		[UsedImplicitly]
 		public void TryTrashFood() {
-			throw new NotImplementedException("TryTrashFood: this feature is not implemented");
+			if ( _place == null )
+				return;
+			if ( _place.CurFood == null )
+				return;
+			if ( _place.CurFood.CurStatus != Food.FoodStatus.Overcooked )
+				return;
+
+			_place.FreePlace();
 		}
 	}
 }
