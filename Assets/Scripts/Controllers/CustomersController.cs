@@ -137,6 +137,7 @@ namespace CookingPrototype.Controllers {
 		/// <param name="order">Заказ, который пытаемся отдать</param>
 		/// <returns>Флаг - результат, удалось ли успешно отдать заказ</returns>
 		public bool ServeOrder(Order order) {
+
 			if ( order == null )
 				return false;
 
@@ -170,15 +171,10 @@ namespace CookingPrototype.Controllers {
 					if ( customerOrderPlace.CurOrder == null )
 						continue;
 
-					foreach ( var orderFood in customerOrderPlace.CurOrder.Foods ) {
-						foreach ( var currOrderFood in order.Foods ) {
+					if ( order.Name != customerOrderPlace.CurOrder.Name )
+						continue;
 
-							if ( currOrderFood.Name != orderFood.Name )
-								continue;
-
-							CustomersWithSameOrder.Add(customerPlace.CurCustomer);
-						}
-					}
+					CustomersWithSameOrder.Add(customerPlace.CurCustomer);
 				}
 			}
 

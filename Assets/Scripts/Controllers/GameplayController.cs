@@ -95,6 +95,7 @@ namespace CookingPrototype.Controllers {
 			foreach ( var place in FindObjectsOfType<AbstractFoodPlace>() ) {
 				place.FreePlace();
 			}
+
 		}
 		public void StartGame() {
 			HideWindows();
