@@ -53,10 +53,6 @@ namespace CookingPrototype.Controllers {
 			}
 		}
 
-		void Start() {
-			//Init();
-		}
-
 		void Update() {
 			if ( !HasFreePlaces ) {
 				return;
@@ -118,7 +114,6 @@ namespace CookingPrototype.Controllers {
 			TotalCustomersGeneratedChanged?.Invoke();
 
 			GameplayController.Instance.OrdersTarget = totalOrders - 2;
-			Debug.Log(GameplayController.Instance.OrdersTarget);
 		}
 
 		/// <summary>
@@ -142,14 +137,14 @@ namespace CookingPrototype.Controllers {
 		/// <param name="order">Заказ, который пытаемся отдать</param>
 		/// <returns>Флаг - результат, удалось ли успешно отдать заказ</returns>
 		public bool ServeOrder(Order order) {
-
-			if (order == null)
+			if ( order == null )
 				return false;
 
 			var Customer = GetCustomerWithLeastTimeByOrder(order);
-			
+
 			if ( Customer == null )
 				return false;
+
 			if ( !Customer.ServeOrder(order) )
 				return false;
 
@@ -157,34 +152,32 @@ namespace CookingPrototype.Controllers {
 				FreeCustomer(Customer);
 
 			return true;
-			throw new NotImplementedException("ServeOrder: this feature is not implemented.");
 		}
 
-		Customer GetCustomerWithLeastTimeByOrder(Order order)
-		{
+		private Customer GetCustomerWithLeastTimeByOrder(Order order) {
+
 			List<Customer> CustomersWithSameOrder = new List<Customer>();
-			foreach(var customerPlace in CustomerPlaces)
-			{
+
+			foreach ( var customerPlace in CustomerPlaces ) {
+
 				if ( customerPlace == null )
 					continue;
 				if ( customerPlace.CurCustomer == null )
 					continue;
 
-				foreach(var customerOrderPlace in customerPlace.CurCustomer.OrderPlaces )
-				{
+				foreach ( var customerOrderPlace in customerPlace.CurCustomer.OrderPlaces ) {
+
 					if ( customerOrderPlace.CurOrder == null )
 						continue;
 
-					foreach(var orderFood in customerOrderPlace.CurOrder.Foods )
-					{
-						foreach(var currOrderFood in order.Foods ) {
+					foreach ( var orderFood in customerOrderPlace.CurOrder.Foods ) {
+						foreach ( var currOrderFood in order.Foods ) {
+
 							if ( currOrderFood.Name != orderFood.Name )
 								continue;
 
 							CustomersWithSameOrder.Add(customerPlace.CurCustomer);
 						}
-
-
 					}
 				}
 			}
