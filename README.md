@@ -18,12 +18,12 @@
 - Добавить prefab для блюда
 - Я бы ввел переменную int ServingsNubmer для FoodPlace, которая отвечала бы за то, сколько порций может приготовить текущеее место.
 - Добавить на сцену иерархию объектов:
-  DeepFryer(no components)
-    OnionPlacer. Компопнент FoodPlacer - с указанием названия блюда и Place - объект, где находится фритюр.
-    Place - объект фритюра. Компонент FoodPlace - с указанием времени готовки и кол-вом позиций. Компонент FoodTransfer с указанием места на столе, куда должен выложиться готовый продукт.
-  OnionPlate(no components)
-    OrderPlace2. Компоненты OrderPlace, OrderPresenter, OrderServer
-    OrderPlace1
-    OrderPlace0
+ - DeepFryer(no components)
+   - OnionPlacer. Компопнент FoodPlacer - с указанием названия блюда и Place - объект, где находится фритюр.
+   - Place - объект фритюра. Компонент FoodPlace - с указанием времени готовки и кол-вом позиций. Компонент FoodTransfer с указанием места на столе, куда должен выложиться готовый продукт.
+-  OnionPlate(no components)
+   - OrderPlace2. Компоненты OrderPlace, OrderPresenter, OrderServer
+   - OrderPlace1
+   - OrderPlace0
   
 FoodTransfer имеет ссылку на объект FoodPlace, поэтому может разложить ServingsNubmer приготовленных позиций по свободным местам.
