@@ -87,32 +87,22 @@ namespace CookingPrototype.Controllers {
 			return true;
 		}
 
-		public void Restart() {
-			Init();
-			CustomersController.Instance.Init();
+		public void Restart(bool isNeedInit) {
+			if ( isNeedInit ) {
+				Init();
+				CustomersController.Instance.Init();
+			}
 			HideWindows();
 
 			foreach ( var place in FindObjectsOfType<AbstractFoodPlace>() ) {
 				place.FreePlace();
 			}
 
-		}
-		public void StartGame() {
-			HideWindows();
-
-			foreach ( var place in FindObjectsOfType<AbstractFoodPlace>() ) {
-				place.FreePlace();
-			}
-
-			PauseGame(false);
+			Time.timeScale = 1.0f;
 		}
 
-		public void PauseGame(bool enable) {
-			if ( enable )
-				Time.timeScale = 0.0f;
-			else
-				Time.timeScale = 1.0f;
-		}
+
+
 		public void CloseGame() {
 #if UNITY_EDITOR
 			UnityEditor.EditorApplication.isPlaying = false;

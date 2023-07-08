@@ -16,7 +16,7 @@ namespace CookingPrototype.UI {
 		void Init() {
 			var gc = GameplayController.Instance;
 
-			StartButton.onClick.AddListener(gc.StartGame);
+			StartButton.onClick.AddListener(delegate { gc.Restart(false) ; });
 		}
 
 		public void Show() {
@@ -29,7 +29,7 @@ namespace CookingPrototype.UI {
 
 			gameObject.SetActive(true);
 
-			gc.PauseGame(true);
+			Time.timeScale = 0.0f;
 		}
 
 		public void Hide() {
